@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  dev-db:
+    image: postgres:13
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: salah
+      POSTGRES_PASSWORD: salah123
+      POSTGRES_DB: mydb
+      DOCKER_HOST: http://lochalhost
