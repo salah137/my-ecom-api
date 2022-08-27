@@ -6,20 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.UserActionsModule = void 0;
 const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
-const prisma_module_1 = require("./prisma/prisma.module");
-const jwt_strategy_1 = require("./user/user.auth/strategy/jwt.strategy");
-const user_module_1 = require("./user/user.module");
-let AppModule = class AppModule {
+const user_actions_controller_1 = require("./user.actions.controller");
+const user_actions_service_1 = require("./user.actions.service");
+let UserActionsModule = class UserActionsModule {
 };
-AppModule = __decorate([
+UserActionsModule = __decorate([
     (0, common_1.Module)({
-        imports: [user_module_1.UserModule, config_1.ConfigModule.forRoot({ isGlobal: true }), prisma_module_1.PrismaModule,],
-        controllers: [],
-        providers: [jwt_strategy_1.JwtStrategy],
+        controllers: [user_actions_controller_1.UserActionsController],
+        providers: [user_actions_service_1.UserActionsService]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], UserActionsModule);
+exports.UserActionsModule = UserActionsModule;
+//# sourceMappingURL=user.actions.module.js.map

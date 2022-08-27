@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserAuthService = void 0;
 const common_1 = require("@nestjs/common");
-const user_dto_1 = require("./dto/user_dto");
+const dto_1 = require("../dto/dto");
 const argon = require("argon2");
 const prisma_service_1 = require("../../prisma/prisma.service");
 const runtime_1 = require("@prisma/client/runtime");
@@ -29,14 +29,13 @@ let UserAuthService = class UserAuthService {
     async signUp(dto) {
         let hashedPassword = await argon.hash(dto.password);
         let apiKey = (await argon.hash(`${dto.email}${dto.name}`)).substring(30);
-        console.log("hi");
         try {
             let user = this.prismaS.user.create({
                 data: {
                     email: dto.email,
                     name: dto.name,
                     password: hashedPassword,
-                    apiKey: apiKey
+                    apiKey: apiKey,
                 }
             });
             return await this.signToken((await user).email, (await user).id);
@@ -53,8 +52,6 @@ let UserAuthService = class UserAuthService {
                 email: dto.email,
             }
         });
-        console.log(user);
-        console.log(!user);
         if (!user) {
             throw new common_1.ForbiddenException("Invalid Email Or Password");
         }
@@ -69,7 +66,7 @@ let UserAuthService = class UserAuthService {
             email
         };
         const token = await this.jwt.signAsync(payload, {
-            expiresIn: "44640",
+            expiresIn: "44640m",
             secret: await this.config.get("JWT_SECRET")
         });
         return {
@@ -80,13 +77,13 @@ let UserAuthService = class UserAuthService {
 __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.SignUpDto]),
+    __metadata("design:paramtypes", [dto_1.SignUpDto]),
     __metadata("design:returntype", Promise)
 ], UserAuthService.prototype, "signUp", null);
 __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.SignInDto]),
+    __metadata("design:paramtypes", [dto_1.SignInDto]),
     __metadata("design:returntype", Promise)
 ], UserAuthService.prototype, "signIn", null);
 UserAuthService = __decorate([

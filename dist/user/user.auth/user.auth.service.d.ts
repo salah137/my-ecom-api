@@ -1,4 +1,4 @@
-import { SignInDto, SignUpDto } from './dto/user_dto';
+import { SignInDto, SignUpDto } from '../dto/dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';

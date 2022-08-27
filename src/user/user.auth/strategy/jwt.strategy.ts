@@ -21,6 +21,6 @@ export class JwtStrategy extends PassportStrategy(
     }
 
     validate(paylod : any){
-        return paylod
+        return paylod.sub
     }
 }
