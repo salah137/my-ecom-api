@@ -22,6 +22,17 @@ export declare class UserActionsService {
     updatePoduct(dto: UpdatedProductDto): Promise<{
         Done: string;
         id: number;
+        error?: undefined;
+    } | {
+        error: string;
+        Done?: undefined;
+        id?: undefined;
     }>;
-    deleteProduct(id: any): Promise<void>;
+    deleteProduct(id: any): Promise<{
+        Done: string;
+        error?: undefined;
+    } | {
+        error: string;
+        Done?: undefined;
+    }>;
 }

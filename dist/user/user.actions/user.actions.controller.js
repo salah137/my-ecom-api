@@ -31,10 +31,22 @@ let UserActionsController = class UserActionsController {
         return this.actionsS.getApp(Number(request.query.appId), request.user);
     }
     deleteApp(appId) {
-        return this.actionsS.deleteApp(Number(appId));
+        return this.actionsS.deleteApp(appId);
     }
     createProduct(product) {
         return this.actionsS.createProduct(product);
+    }
+    updateProduct(dto) {
+        return this.actionsS.updatePoduct(dto);
+    }
+    deleteProduct(id) {
+        return this.actionsS.deleteProduct(Number(id));
+    }
+    getProducts(appId) {
+        return this.actionsS.getProducts(appId);
+    }
+    getProdut(appId, id) {
+        return this.actionsS.getProduct(Number(appId), Number(id));
     }
 };
 __decorate([
@@ -62,7 +74,7 @@ __decorate([
     (0, common_1.Delete)("deleteApp"),
     __param(0, (0, common_1.Query)("appId")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [common_1.ParseIntPipe]),
     __metadata("design:returntype", void 0)
 ], UserActionsController.prototype, "deleteApp", null);
 __decorate([
@@ -72,6 +84,35 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.ProductDto]),
     __metadata("design:returntype", void 0)
 ], UserActionsController.prototype, "createProduct", null);
+__decorate([
+    (0, common_1.Patch)("updateProduct"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.UpdatedProductDto]),
+    __metadata("design:returntype", void 0)
+], UserActionsController.prototype, "updateProduct", null);
+__decorate([
+    (0, common_1.Delete)("deleteProduct"),
+    __param(0, (0, common_1.Query)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [common_1.ParseIntPipe]),
+    __metadata("design:returntype", void 0)
+], UserActionsController.prototype, "deleteProduct", null);
+__decorate([
+    (0, common_1.Get)("getProducts"),
+    __param(0, (0, common_1.Query)("appId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [common_1.ParseIntPipe]),
+    __metadata("design:returntype", void 0)
+], UserActionsController.prototype, "getProducts", null);
+__decorate([
+    (0, common_1.Get)("getProduct"),
+    __param(0, (0, common_1.Query)("appId")),
+    __param(1, (0, common_1.Query)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [common_1.ParseIntPipe, common_1.ParseIntPipe]),
+    __metadata("design:returntype", void 0)
+], UserActionsController.prototype, "getProdut", null);
 UserActionsController = __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
     (0, common_1.Controller)('user/actions'),

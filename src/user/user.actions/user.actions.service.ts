@@ -54,37 +54,37 @@ export class UserActionsService {
         )
 
         return {
-            "Done":"App deleted Succesfuly"
+            "Done": "App deleted Succesfuly"
         }
     }
 
-    async createProduct(dto : ProductDto){
+    async createProduct(dto: ProductDto) {
         let product = await this.prismaS.product.create(
             {
-                data : {
-                    appId : dto.appId,
-                    name : dto.name,
-                    image : dto.image,
-                    price : parseFloat(dto.price)
+                data: {
+                    appId: dto.appId,
+                    name: dto.name,
+                    image: dto.image,
+                    price: parseFloat(dto.price)
                 }
             }
         )
 
 
         return {
-            "Done":"product created Succesfuly",
-            "appId" : product.appId,
-            "id" : product.id
+            "Done": "product created Succesfuly",
+            "appId": product.appId,
+            "id": product.id
         }
 
-        
+
     }
 
-    async getProducts(appId : any) {
+    async getProducts(appId: any) {
         let products = await this.prismaS.product.findMany(
             {
-                where : {
-                    appId : appId
+                where: {
+                    appId: appId
                 }
             }
         )
@@ -93,45 +93,60 @@ export class UserActionsService {
     }
 
 
-    async getProduct(appId : any, id : any){
+    async getProduct(appId: any, id: any) {
         let product = await this.prismaS.product.findFirst(
             {
-                where : {
-                    id : id,
-                    appId : appId
+                where: {
+                    id: id,
+                    appId: appId
                 }
             }
         )
         return product
     }
 
-    async updatePoduct(dto : UpdatedProductDto){
-        let updatedProduct = await this.prismaS.product.update(
-            {
-                where : {
-                    id : dto.id
-                },
-                data : {
-                    name : dto.name,
-                    price : parseFloat(dto.price),
-                    image :  dto.image
+    async updatePoduct(dto: UpdatedProductDto) {
+        try {
+            let updatedProduct = await this.prismaS.product.update(
+                {
+                    where: {
+                        id: dto.id
+                    },
+                    data: {
+                        name: dto.name,
+                        price: parseFloat(dto.price),
+                        image: dto.image
+                    }
                 }
-            }
-        )
+            )
 
-        return {
-            "Done":"product updated Succesfuly",
-            "id" : updatedProduct.id
+            return {
+                "Done": "product updated Succesfuly",
+                "id": updatedProduct.id
+            }
+        } catch (error) {
+            return {
+                "error": "no product found"
+            }
         }
     }
 
-    async deleteProduct(id : any) {
-        await this.prismaS.product.delete(
-            {
-                where : {
-                    id : id
+    async deleteProduct(id: any) {
+        try {
+            await this.prismaS.product.delete(
+                {
+                    where: {
+                        id: id
+                    }
                 }
+            )
+            return {
+                "Done": "product deleted Succesfuly",
             }
-        )
+        } catch (error) {
+            return {
+                "error": "no product found"
+            }
+        }
     }
 }

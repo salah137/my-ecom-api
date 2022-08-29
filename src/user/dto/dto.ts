@@ -45,6 +45,7 @@ export class ProductDto {
 
 export class UpdatedProductDto {
     @IsNotEmpty()
+    
     id : number
 
     @IsNotEmpty()

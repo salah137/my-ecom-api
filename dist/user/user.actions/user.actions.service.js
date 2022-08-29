@@ -85,27 +85,44 @@ let UserActionsService = class UserActionsService {
         return product;
     }
     async updatePoduct(dto) {
-        let updatedProduct = await this.prismaS.product.update({
-            where: {
-                id: dto.id
-            },
-            data: {
-                name: dto.name,
-                price: parseFloat(dto.price),
-                image: dto.image
-            }
-        });
-        return {
-            "Done": "product updated Succesfuly",
-            "id": updatedProduct.id
-        };
+        try {
+            let updatedProduct = await this.prismaS.product.update({
+                where: {
+                    id: dto.id
+                },
+                data: {
+                    name: dto.name,
+                    price: parseFloat(dto.price),
+                    image: dto.image
+                }
+            });
+            return {
+                "Done": "product updated Succesfuly",
+                "id": updatedProduct.id
+            };
+        }
+        catch (error) {
+            return {
+                "error": "no product found"
+            };
+        }
     }
     async deleteProduct(id) {
-        await this.prismaS.product.delete({
-            where: {
-                id: id
-            }
-        });
+        try {
+            await this.prismaS.product.delete({
+                where: {
+                    id: id
+                }
+            });
+            return {
+                "Done": "product deleted Succesfuly",
+            };
+        }
+        catch (error) {
+            return {
+                "error": "no product found"
+            };
+        }
     }
 };
 UserActionsService = __decorate([

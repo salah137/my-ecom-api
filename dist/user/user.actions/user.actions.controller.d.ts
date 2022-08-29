@@ -1,5 +1,6 @@
+import { ParseIntPipe } from '@nestjs/common';
 import { Request } from 'express';
-import { ProductDto } from '../dto/dto';
+import { ProductDto, UpdatedProductDto } from '../dto/dto';
 import { UserActionsService } from './user.actions.service';
 export declare class UserActionsController {
     private actionsS;
@@ -10,7 +11,7 @@ export declare class UserActionsController {
     }>;
     getApps(request: Request): Promise<import(".prisma/client").App[]>;
     getApp(request: Request): Promise<import(".prisma/client").App>;
-    deleteApp(appId: string): Promise<{
+    deleteApp(appId: ParseIntPipe): Promise<{
         Done: string;
     }>;
     createProduct(product: ProductDto): Promise<{
@@ -18,4 +19,22 @@ export declare class UserActionsController {
         appId: number;
         id: number;
     }>;
+    updateProduct(dto: UpdatedProductDto): Promise<{
+        Done: string;
+        id: number;
+        error?: undefined;
+    } | {
+        error: string;
+        Done?: undefined;
+        id?: undefined;
+    }>;
+    deleteProduct(id: ParseIntPipe): Promise<{
+        Done: string;
+        error?: undefined;
+    } | {
+        error: string;
+        Done?: undefined;
+    }>;
+    getProducts(appId: ParseIntPipe): Promise<import(".prisma/client").Product[]>;
+    getProdut(appId: ParseIntPipe, id: ParseIntPipe): Promise<import(".prisma/client").Product>;
 }

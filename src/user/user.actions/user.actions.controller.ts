@@ -43,7 +43,7 @@ export class UserActionsController {
 
     @Delete("deleteProduct")
     deleteProduct(@Query("id") id: ParseIntPipe){
-        return this.actionsS.deleteProduct(id)
+        return this.actionsS.deleteProduct(Number(id))
     }
 
     @Get("getProducts")
@@ -52,7 +52,7 @@ export class UserActionsController {
     }
 
     @Get("getProduct")
-    getProdut(@Query("appId") appId : number, @Query("id") id : number){
-        return this.actionsS.getProduct(appId,id)
+    getProdut(@Query("appId") appId : ParseIntPipe, @Query("id") id : ParseIntPipe){
+        return this.actionsS.getProduct(Number(appId),Number(id))
     }
 }

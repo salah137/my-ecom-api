@@ -45,7 +45,7 @@ model AppUser {
 model Product {
   id Int @id @default(autoincrement())
 
-  name  String  @unique
+  name  String  
   image String?
   price Float
 
@@ -58,6 +58,7 @@ model Product {
 model CardProuct {
   id Int @id @default(autoincrement())
 
+  itemesCount Int @default(1)
   productId Int
   product   Product @relation(fields: [productId], references: [id])
 
