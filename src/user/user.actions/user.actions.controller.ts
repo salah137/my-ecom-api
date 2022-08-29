@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, ParseIntPipe, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { ProductDto } from '../dto/dto';
+import { ProductDto, UpdatedProductDto } from '../dto/dto';
 import { UserActionsService } from './user.actions.service';
 
 @UseGuards(AuthGuard("jwt"))
@@ -26,8 +26,8 @@ export class UserActionsController {
     }
 
     @Delete("deleteApp")
-    deleteApp(@Query("appId") appId: string) {
-        return this.actionsS.deleteApp(Number(appId))
+    deleteApp(@Query("appId") appId: ParseIntPipe) {
+        return this.actionsS.deleteApp(appId)
     }
 
 // products managing routes :::>
@@ -36,5 +36,23 @@ export class UserActionsController {
         return this.actionsS.createProduct(product)
     }
     
-    
+    @Patch("updateProduct")
+    updateProduct(@Body() dto : UpdatedProductDto){
+        return this.actionsS.updatePoduct(dto)
+    }
+
+    @Delete("deleteProduct")
+    deleteProduct(@Query("id") id: ParseIntPipe){
+        return this.actionsS.deleteProduct(id)
+    }
+
+    @Get("getProducts")
+    getProducts(@Query("appId") appId: ParseIntPipe){
+        return this.actionsS.getProducts(appId)
+    }
+
+    @Get("getProduct")
+    getProdut(@Query("appId") appId : number, @Query("id") id : number){
+        return this.actionsS.getProduct(appId,id)
+    }
 }
