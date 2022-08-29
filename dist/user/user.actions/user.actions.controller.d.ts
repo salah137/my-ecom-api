@@ -13,5 +13,9 @@ export declare class UserActionsController {
     deleteApp(appId: string): Promise<{
         Done: string;
     }>;
-    createProduct(product: ProductDto): Promise<import(".prisma/client").Product>;
+    createProduct(product: ProductDto): Promise<{
+        Done: string;
+        appId: number;
+        id: number;
+    }>;
 }

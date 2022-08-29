@@ -61,7 +61,51 @@ let UserActionsService = class UserActionsService {
                 price: parseFloat(dto.price)
             }
         });
+        return {
+            "Done": "product created Succesfuly",
+            "appId": product.appId,
+            "id": product.id
+        };
+    }
+    async getProducts(appId) {
+        let products = await this.prismaS.product.findMany({
+            where: {
+                appId: appId
+            }
+        });
+        return products;
+    }
+    async getProduct(appId, id) {
+        let product = await this.prismaS.product.findFirst({
+            where: {
+                id: id,
+                appId: appId
+            }
+        });
         return product;
+    }
+    async updatePoduct(dto) {
+        let updatedProduct = await this.prismaS.product.update({
+            where: {
+                id: dto.id
+            },
+            data: {
+                name: dto.name,
+                price: parseFloat(dto.price),
+                image: dto.image
+            }
+        });
+        return {
+            "Done": "product updated Succesfuly",
+            "id": updatedProduct.id
+        };
+    }
+    async deleteProduct(id) {
+        await this.prismaS.product.delete({
+            where: {
+                id: id
+            }
+        });
     }
 };
 UserActionsService = __decorate([

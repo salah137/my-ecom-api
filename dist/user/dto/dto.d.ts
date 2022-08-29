@@ -13,3 +13,9 @@ export declare class ProductDto {
     price: string;
     appId: number;
 }
+export declare class UpdatedProductDto {
+    id: number;
+    name: string;
+    image: string;
+    price: string;
+}

@@ -1,5 +1,5 @@
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ProductDto } from '../dto/dto';
+import { ProductDto, UpdatedProductDto } from '../dto/dto';
 export declare class UserActionsService {
     private prismaS;
     constructor(prismaS: PrismaService);
@@ -12,5 +12,16 @@ export declare class UserActionsService {
     deleteApp(appId: any): Promise<{
         Done: string;
     }>;
-    createProduct(dto: ProductDto): Promise<import(".prisma/client").Product>;
+    createProduct(dto: ProductDto): Promise<{
+        Done: string;
+        appId: number;
+        id: number;
+    }>;
+    getProducts(appId: any): Promise<import(".prisma/client").Product[]>;
+    getProduct(appId: any, id: any): Promise<import(".prisma/client").Product>;
+    updatePoduct(dto: UpdatedProductDto): Promise<{
+        Done: string;
+        id: number;
+    }>;
+    deleteProduct(id: any): Promise<void>;
 }

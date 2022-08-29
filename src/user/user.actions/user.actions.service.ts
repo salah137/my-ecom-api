@@ -121,6 +121,17 @@ export class UserActionsService {
 
         return {
             "Done":"product updated Succesfuly",
+            "id" : updatedProduct.id
         }
+    }
+
+    async deleteProduct(id : any) {
+        await this.prismaS.product.delete(
+            {
+                where : {
+                    id : id
+                }
+            }
+        )
     }
 }
