@@ -9,7 +9,7 @@ import { UserActionsService } from './user.actions.service';
 export class UserActionsController {
     constructor(private actionsS: UserActionsService) { }
 
-// apps routs :::>
+// apps managing routs :::>
     @Post("createApp")
     createApp(@Req() request: Request) {
         return this.actionsS.createApp(request.user)
@@ -30,9 +30,11 @@ export class UserActionsController {
         return this.actionsS.deleteApp(Number(appId))
     }
 
-// products routes :::>
+// products managing routes :::>
     @Post("createProduct")
     createProduct(@Body() product : ProductDto){
         return this.actionsS.createProduct(product)
-    }        
+    }
+    
+    
 }
