@@ -1,27 +1,29 @@
-import { Body, ForbiddenException, Injectable } from '@nestjs/common';
-import { SignInDto, SignUpDto } from '../dto/dto';
-import * as argon from "argon2"
-import { PrismaService } from 'src/prisma/prisma.service';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
-import { JwtService } from '@nestjs/jwt';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { SignInDto, SignUpDto } from '../dto/dto';
+import * as argon from 'argon2'
+
+
 @Injectable()
-export class UserAuthService {
-    constructor(private prismaS: PrismaService, private jwt: JwtService, private config: ConfigService) { }
+export class AuthService {
+    constructor(private prismaS: PrismaService, private jwt: JwtService, private config : ConfigService) {
 
+    }
 
-    async signUp(@Body() dto: SignUpDto) {
+    async signUp(dto: SignUpDto) {
         let hashedPassword = await argon.hash(dto.password)
-        let apiKey = (await argon.hash(`${dto.email}${dto.name}`)).substring(30)
 
         try {
-            let user = this.prismaS.user.create(
+            let user = this.prismaS.appUser.create(
                 {
                     data: {
                         email: dto.email,
                         name: dto.name,
                         password: hashedPassword,
-                        apiKey: apiKey,
+                        appId : dto.appId
 
                     }
                 }
@@ -43,11 +45,11 @@ export class UserAuthService {
     }
 
     async signIn( dto: SignInDto) {
-        let user = await this.prismaS.user.findFirst(
+        let user = await this.prismaS.appUser.findFirst(
             {
                 where: {
                     email: dto.email,
-
+                    appId : dto.appId
                 }
             }
         )
@@ -71,6 +73,8 @@ export class UserAuthService {
         )
     }
 
+
+
     async signToken(
         email: string,
         id: number
@@ -93,4 +97,5 @@ export class UserAuthService {
         }
 
     }
+
 }

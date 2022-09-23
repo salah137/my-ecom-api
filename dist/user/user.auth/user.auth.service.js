@@ -80,12 +80,6 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.SignUpDto]),
     __metadata("design:returntype", Promise)
 ], UserAuthService.prototype, "signUp", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.SignInDto]),
-    __metadata("design:returntype", Promise)
-], UserAuthService.prototype, "signIn", null);
 UserAuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService, jwt_1.JwtService, config_1.ConfigService])

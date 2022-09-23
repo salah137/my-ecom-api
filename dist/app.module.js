@@ -13,11 +13,12 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const jwt_strategy_1 = require("./user/user.auth/strategy/jwt.strategy");
 const user_module_1 = require("./user/user.module");
 const app_user_module_1 = require("./app_user/app_user.module");
+const jwt_1 = require("@nestjs/jwt");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [user_module_1.UserModule, config_1.ConfigModule.forRoot({ isGlobal: true }), prisma_module_1.PrismaModule, app_user_module_1.AppUserModule,],
+        imports: [user_module_1.UserModule, config_1.ConfigModule.forRoot({ isGlobal: true }), prisma_module_1.PrismaModule, app_user_module_1.AppUserModule, jwt_1.JwtModule.register({})],
         controllers: [],
         providers: [jwt_strategy_1.JwtStrategy],
     })
